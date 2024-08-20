@@ -1,0 +1,31 @@
+---
+- name: Install jumpbox dependencies
+  hosts: jumpbox
+  remote_user: root
+    
+  tasks:
+  - name: Install development dependencies
+    yum:
+      name:
+        - git
+        - wget
+        - curl
+        - vim
+        - openssl
+      state: installed
+      update_cache: true
+    become: true # assume root user when performing task
+
+  - name: Install kubectl 
+    get_url:
+      url: https://storage.googleapis.com/kubernetes-release/release/v1.28.3/bin/linux/amd64/kubectl
+      dest: /usr/local/bin/kubectl
+      mode: +x
+    become: true
+
+      #- name: Install server dependencies
+      #  hosts: server
+      #  remote_user: root
+      #
+      #  tasks:
+
