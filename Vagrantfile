@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.define "jumpbox", primary:true do |jumpbox|
     jumpbox.vm.box = "generic/rocky9"
+    jumpbox.vm.hostname = "jumpbox"
     jumpbox.vm.provider "libvirt" do |pmv|
       pmv.memory="512"
       pmv.cpus="1"
@@ -18,6 +19,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "server" do |server|
     server.vm.box = "generic/rocky9"
+    server.vm.hostname = "server"
     server.vm.network :private_network, ip:"192.168.121.120"
     server.vm.provider "libvirt" do |pmv|
       pmv.memory="2048"
@@ -25,17 +27,19 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "node2" do |node2|
-    node2.vm.box = "generic/rocky9"
-    node2.vm.network :private_network, ip:"192.168.121.130"
-    node2.vm.provider "libvirt" do |pmv|
+  config.vm.define "node0" do |node0|
+    node0.vm.box = "generic/rocky9"
+    node0.vm.hostname = "node0";
+    node0.vm.network :private_network, ip:"192.168.121.130"
+    node0.vm.provider "libvirt" do |pmv|
       pmv.memory="2048"
       pmv.cpus="2"
     end
   end
   
-  config.vm.define "node2" do |node1|
+  config.vm.define "node1" do |node1|
     node1.vm.box = "generic/rocky9"
+    node1.vm.hostname = "node1";
     node1.vm.network :private_network, ip:"192.168.121.131"
     node1.vm.provider "libvirt" do |pmv|
       pmv.memory="2048"
